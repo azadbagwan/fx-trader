@@ -2,133 +2,113 @@
 
 An advanced forex trading platform that combines machine learning with technical analysis and news sentiment to make trading decisions. The platform integrates with MetaTrader 5 for executing trades and provides a web interface for monitoring and control.
 
-## Features
+## How It Works
 
-- Machine learning models for price prediction using historical data
-- News sentiment analysis for market insight
-- Real-time trading execution through MetaTrader 5
-- Web-based dashboard for monitoring and control
-- Combined model approach using both technical and fundamental analysis
-- Automated risk management with configurable stop-loss and take-profit levels
+1. **Model Training**
+   - Historical price data analysis
+   - Technical indicators (SMA, RSI, MACD, etc.)
+   - News sentiment analysis
+   - Combined decision making
 
-## Prerequisites
+2. **Trading Process**
+   - Analyzes market every 60 seconds
+   - Makes predictions (Short/Hold/Long)
+   - Shows confidence level for each decision
+   - Executes trades when confidence > 60%
 
-- Python 3.8+
-- MetaTrader 5 installed and configured with a trading account
-- News API key for sentiment analysis
+3. **Trading Rules**
+   - Short Position: Opens when Short probability > 60%
+   - Long Position: Opens when Long probability > 60%
+   - Hold: No trading when confidence ≤ 60% or Hold is predicted
+   - All trades include stop-loss and take-profit orders
 
-## Installation
+4. **Web Interface Elements**
+   - Current Position: Shows if bot is Short/Hold/Long
+   - Confidence Level: Shows prediction confidence
+   - Probabilities: Shows % for each position type
+   - Performance Metrics: Profit/Loss, Win Rate, etc.
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd fx-trader
-```
+## Setup Requirements
 
-2. Create a virtual environment and activate it:
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+1. MetaTrader 5 Terminal
+   - Must be installed and running
+   - Need valid trading account (demo or real)
+   - Terminal must be logged in
 
-3. Install the required packages:
-```bash
-pip3 install -r requirements.txt
-```
+2. Python Environment
+   - Python 3.8+ with required packages
+   - MetaTrader5 Python package
+   - TensorFlow for predictions
 
-## Project Structure
+## Using the Platform
 
-```
-fx-trader/
-├── app.py                 # Flask application entry point
-├── requirements.txt       # Project dependencies
-├── README.md             # Project documentation
-├── modules/
-│   ├── data_processor.py # Data processing and feature engineering
-│   ├── model_trainer.py  # ML model training and management
-│   └── trader.py         # Trading execution and management
-└── templates/
-    └── index.html        # Web interface template
-```
+1. **Start Trading**
+   - Click "Start Trading" in web interface
+   - Bot connects to MetaTrader
+   - Begins analyzing market
+   - Shows predictions and confidence
 
-## Usage
+2. **Monitor Trades**
+   - Web Interface: Shows current position, confidence, metrics
+   - MetaTrader: Shows actual trades, profit/loss
+   - Trading log: Shows detailed decision process
 
-1. Start the Flask application:
-```bash
-python3 app.py
-```
+3. **Stop Trading**
+   - Click "Stop Trading" to halt
+   - Closes all open positions
+   - Saves performance metrics
 
-2. Access the web interface at `http://localhost:5000`
+## Understanding the Display
 
-3. Select a trading pair and configure training parameters
+1. **Position Indicator**
+   - Red: Short position
+   - Yellow: Hold (no position)
+   - Green: Long position
 
-4. Train the models using historical data
+2. **Confidence Bar**
+   - Shows prediction confidence
+   - Trades only execute above 60%
+   - Higher confidence = stronger signal
 
-5. Start the trading bot when ready
+3. **Performance Metrics**
+   - Total Profit/Loss
+   - Number of trades
+   - Win rate percentage
+   - Current positions
 
-## Trading Strategy
+## Trading Log
 
-The platform uses a sophisticated multi-model approach:
+The bot maintains detailed logs showing:
+- Current market price
+- Prediction probabilities
+- Trading decisions
+- Order execution details
+- Position updates
 
-1. **Historical Data Model**: LSTM-based model analyzing technical indicators
-   - Moving averages
-   - RSI
-   - MACD
-   - Bollinger Bands
-   - Volume indicators
-
-2. **News Sentiment Model**: Analyzes news sentiment for trading pairs
-   - Uses natural language processing
-   - Considers recent news impact
-   - Weighs sentiment scores
-
-3. **Combined Decision Making**: Weighted combination of both models
-   - Configurable weights for technical vs news analysis
-   - Risk management rules
-   - Position sizing logic
-
-## Risk Management
-
-- Automated stop-loss and take-profit levels
-- Position sizing based on account balance
-- Maximum drawdown protection
-- Trading session restrictions
-- Multiple timeframe analysis
-
-## Performance Monitoring
-
-The web interface provides real-time monitoring of:
-- Total profit/loss
-- Win rate
-- Number of trades
-- Maximum drawdown
-- Performance charts
-- Trading status
+Check `trading_bot.log` for detailed operation history.
 
 ## Safety Features
 
-- Automatic stop-loss for all trades
-- Maximum position size limits
-- Emergency stop functionality
-- Error handling and logging
-- Account protection measures
+- Stop-loss on all trades
+- Take-profit targets
+- Confidence thresholds
+- Position size limits
+- Error handling
+- Automatic position tracking
 
-## Contributing
+## Important Notes
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+1. Always monitor the bot's operation
+2. Check MetaTrader to verify trades
+3. Use demo account for testing
+4. Understand the risks involved
+5. Monitor the log file for details
 
-## License
+## Troubleshooting
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Disclaimer
-
-This software is for educational purposes only. Trading forex carries significant risks, and you should carefully consider whether trading is appropriate for you in light of your experience, objectives, financial resources, and other circumstances.
-
-## Support
-
-For support, please open an issue in the repository or contact the development team.
+If trades aren't appearing:
+1. Check MetaTrader is running
+2. Verify account login
+3. Check trading permissions
+4. Monitor confidence levels
+5. Check error logs
